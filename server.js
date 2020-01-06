@@ -14,7 +14,7 @@ require("./db/db")
 
 app.get("/", (req, res) => {
   console.log(req)
-  res.json({ message: "GraphQL response" })
+  res.json({ message: "up and running" })
 })
 
 app.use("/graphql", graphqlHttp({ schema: schema, graphiql: true }))

@@ -14,8 +14,22 @@ const typeDefs = `
 scalar Date
 
 type Query {
+  getNote(_id: ID!) : Note,
     allNotes: [Note]
-}`
+}
+
+input NoteInput{
+  title: String!,
+  content : String
+}
+
+type Mutation {
+  createNote(input : NoteInput) : Note,
+  updateNote(_id:ID!, input:NoteInput) : Note,
+  deleteNote(_id:ID!) : Note
+}
+
+`
 
 const schema = makeExecutableSchema({
   typeDefs,
