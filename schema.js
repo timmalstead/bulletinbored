@@ -1,6 +1,4 @@
-// const makeExecutableSchema = require("graphql-tools")
 import { makeExecutableSchema } from "graphql-tools"
-// const resolvers = require("./resolvers")
 import { resolvers } from "./resolvers"
 
 const typeDefs = `
