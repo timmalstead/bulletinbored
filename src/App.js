@@ -12,15 +12,21 @@ const App = () => {
     navbar: true,
     allNotes: true,
     newNote: false,
-    editNote: false
+    editNote: [false, null]
   })
+
+  const [editId, editOne] = useState(null)
 
   return (
     <div>
       {visible.navbar ? <Navbar showElement={showElement} /> : null}
       {visible.newNote ? <NewNote /> : null}
-      {visible.editNote ? <EditNote /> : null}
-      {visible.allNotes ? <AllNotes /> : null}
+      {visible.editNote[0] ? (
+        <EditNote showElement={showElement} editId={editId} />
+      ) : null}
+      {visible.allNotes ? (
+        <AllNotes showElement={showElement} editOne={editOne} />
+      ) : null}
       <Route
         exact
         path={"/about"}

@@ -4,7 +4,17 @@ import { Link } from "react-router-dom"
 const Navbar = props => {
   return (
     <nav>
-      <Link onClick={() => props.showElement(false)} to="/about">
+      <Link
+        onClick={() =>
+          props.showElement({
+            navbar: false,
+            allNotes: false,
+            newNote: false,
+            editNote: [false, null]
+          })
+        }
+        to="/about"
+      >
         About
       </Link>
       <Link
@@ -13,23 +23,11 @@ const Navbar = props => {
             navbar: true,
             allNotes: true,
             newNote: true,
-            editNote: false
+            editNote: [false, null]
           })
         }
       >
         New Note
-      </Link>
-      <Link
-        onClick={() =>
-          props.showElement({
-            navbar: true,
-            allNotes: true,
-            newNote: false,
-            editNote: true
-          })
-        }
-      >
-        Edit Note
       </Link>
     </nav>
   )

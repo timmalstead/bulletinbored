@@ -10,7 +10,7 @@ const About = props => {
             navbar: true,
             allNotes: true,
             newNote: false,
-            editNote: false
+            editNote: [false, null]
           })
         }
         to="/"

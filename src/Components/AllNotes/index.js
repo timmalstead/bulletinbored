@@ -1,29 +1,53 @@
 import React from "react"
+import { useQuery } from "@apollo/react-hooks"
+import gql from "graphql-tag"
+import { Link } from "react-router-dom"
+
+const notesQuery = gql`
+  {
+    allNotes {
+      _id
+      title
+      content
+      date
+    }
+  }
+`
 
 const AllNotes = props => {
-  let data = [1, 2, 3, 4, 5]
+  const { loading, error, data } = useQuery(notesQuery)
+
+  if (loading) {
+    return "Loading..."
+  } else if (error) {
+    return `Error! ${error.message}`
+  }
+
   return (
     <div>
       <h1>All Notes</h1>
       <div>
         <div>
-          {data.length > 0
-            ? data.map((item, i) => (
-                <div key={i}>
+          {data.allNotes.length
+            ? data.allNotes.map(note => (
+                <div key={note._id}>
+                  <h3>{note.title}</h3>
                   <div>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                    Phasellus nec iaculis mauris. Lorem ipsum dolor sit amet.
-                    <br />
+                    <p>{note.content}</p>
                   </div>
-
-                  {/* <footer>
-                      <Link to={`note/${i}`} className="card-footer-item">
-                        Edit
-                      </Link>
-                      <a href="#" className="card-footer-item">
-                        Delete
-                      </a>
-                    </footer> */}
+                  <button
+                    onClick={() =>
+                      props.showElement({
+                        navbar: true,
+                        allNotes: true,
+                        newNote: false,
+                        editNote: [true, props.editOne(note._id)]
+                      })
+                    }
+                  >
+                    Edit Note
+                  </button>
+                  <Link to={`${note._id}`}>Experiment</Link>
                 </div>
               ))
             : "No Notes yet"}
