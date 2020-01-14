@@ -12,17 +12,17 @@ const App = () => {
     navbar: true,
     allNotes: true,
     newNote: false,
-    editNote: [false, null]
+    editNote: [false, [null]]
   })
 
-  const [editId, editOne] = useState(null)
+  const [editInfo, editOne] = useState(null)
 
   return (
     <div>
       {visible.navbar ? <Navbar showElement={showElement} /> : null}
       {visible.newNote ? <NewNote /> : null}
       {visible.editNote[0] ? (
-        <EditNote showElement={showElement} editId={editId} />
+        <EditNote showElement={showElement} editInfo={editInfo} />
       ) : null}
       {visible.allNotes ? (
         <AllNotes showElement={showElement} editOne={editOne} />

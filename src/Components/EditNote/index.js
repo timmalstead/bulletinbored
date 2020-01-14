@@ -1,45 +1,82 @@
-import React from "react"
-import { useQuery } from "@apollo/react-hooks"
+import React, { useState } from "react"
+import { useQuery, useMutation } from "@apollo/react-hooks"
 import gql from "graphql-tag"
 
 const EditNote = props => {
-  console.log(props.editId, gql)
+  // const singleNoteQuery = gql`
+  //   query getNote($_id: ID!) {
+  //     getNote(_id: $_id) {
+  //       _id
+  //       title
+  //       content
+  //       date
+  //     }
+  //   }
+  // `
 
-  const singleNoteQuery = gql`
-    query getNote($_id: ID!) {
-      getNote(_id: $_id) {
+  const UPDATE_NOTE = gql`
+    mutation updateNote($_id: ID!, $title: String!, $content: String) {
+      updateNote(_id: $_id, input: { title: $title, content: $content }) {
         _id
         title
         content
-        date
       }
     }
   `
 
-  const { loading, error, data } = useQuery(singleNoteQuery, {
-    headers: { "Content-Type": "application/json" }
-  })
+  const [title, setTitle] = useState(props.editInfo.title)
+  const [content, setContent] = useState(props.editInfo.content)
 
-  //okay, now just figure out how to do the
+  // const { loading, error, data } = useQuery(singleNoteQuery, {
+  //   variables: { _id: props.editInfo.id }
+  // })
 
-  console.log(loading, error, data)
+  // if (loading) return <div>Fetching note</div>
+  // if (error) return <div>Error fetching note</div>
+
+  // const note = data
+
+  const [updateNote] = useMutation(UPDATE_NOTE)
 
   return (
     <div>
       <h1>Edit Note</h1>​
       <div>
-        <form>
+        <form
+          onSubmit={e => {
+            e.preventDefault()
+            updateNote({
+              variables: {
+                _id: props.editInfo.id,
+                title: title ? title : props.editInfo.title,
+                content: content ? content : props.editInfo.content
+              }
+            })
+          }}
+        >
           <div>
             <label>Note Title</label>
             <div>
-              <input type="text" placeholder="Note Title" />
+              <input
+                name="title"
+                type="text"
+                placeholder="Note Title"
+                value={title}
+                onChange={e => setTitle(e.target.value)}
+              />
             </div>
           </div>
           ​
           <div>
             <label>Note Content</label>
             <div>
-              <textarea rows="10" placeholder="Note content here..."></textarea>
+              <textarea
+                name="title"
+                rows="10"
+                placeholder="Note content here..."
+                value={content}
+                onChange={e => setContent(e.target.value)}
+              ></textarea>
             </div>
           </div>
           ​<button>Submit</button>
