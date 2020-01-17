@@ -1,19 +1,8 @@
 import React, { useState } from "react"
-import { useQuery, useMutation } from "@apollo/react-hooks"
+import { useMutation } from "@apollo/react-hooks"
 import gql from "graphql-tag"
 
 const EditNote = props => {
-  // const singleNoteQuery = gql`
-  //   query getNote($_id: ID!) {
-  //     getNote(_id: $_id) {
-  //       _id
-  //       title
-  //       content
-  //       date
-  //     }
-  //   }
-  // `
-
   const UPDATE_NOTE = gql`
     mutation updateNote($_id: ID!, $title: String!, $content: String) {
       updateNote(_id: $_id, input: { title: $title, content: $content }) {
@@ -26,15 +15,6 @@ const EditNote = props => {
 
   const [title, setTitle] = useState(props.editInfo.title)
   const [content, setContent] = useState(props.editInfo.content)
-
-  // const { loading, error, data } = useQuery(singleNoteQuery, {
-  //   variables: { _id: props.editInfo.id }
-  // })
-
-  // if (loading) return <div>Fetching note</div>
-  // if (error) return <div>Error fetching note</div>
-
-  // const note = data
 
   const [updateNote] = useMutation(UPDATE_NOTE)
 

@@ -7,6 +7,8 @@ import NewNote from "./Components/NewNote"
 import EditNote from "./Components/EditNote"
 import About from "./Components/About"
 
+import "./App.css"
+
 const App = () => {
   const [visible, showElement] = useState({
     navbar: true,
@@ -19,6 +21,11 @@ const App = () => {
 
   return (
     <div>
+      <Route
+        exact
+        path={"/about"}
+        render={() => <About showElement={showElement} />}
+      ></Route>
       {visible.navbar ? <Navbar showElement={showElement} /> : null}
       {visible.newNote ? <NewNote /> : null}
       {visible.editNote[0] ? (
@@ -27,11 +34,6 @@ const App = () => {
       {visible.allNotes ? (
         <AllNotes showElement={showElement} editOne={editOne} />
       ) : null}
-      <Route
-        exact
-        path={"/about"}
-        render={() => <About showElement={showElement} />}
-      ></Route>
     </div>
   )
 }

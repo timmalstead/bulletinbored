@@ -1,7 +1,8 @@
 import React from "react"
 import { useQuery, useMutation } from "@apollo/react-hooks"
 import gql from "graphql-tag"
-// import { Link } from "react-router-dom"
+
+import { NotesStyle, Wrapper, SingleNote, Button } from "./style"
 
 const notesQuery = gql`
   {
@@ -46,56 +47,54 @@ const AllNotes = props => {
     return `Error! ${error.message}. Please try reloading in a few seconds.`
   }
 
-  return (
-    <div>
-      <h1>All Notes</h1>
-      <div>
-        <div>
-          {data.allNotes.length
-            ? data.allNotes.map(note => (
-                <div key={note._id}>
-                  <h3>{note.title}</h3>
-                  <div>
-                    <p>{note.content}</p>
-                  </div>
-                  <button
-                    onClick={() =>
-                      props.showElement({
-                        navbar: true,
-                        allNotes: true,
-                        newNote: false,
-                        editNote: [
-                          true,
-                          props.editOne({
-                            id: note._id,
-                            title: note.title,
-                            content: note.content
-                          })
-                        ]
-                      })
-                    }
-                  >
-                    Edit Note
-                  </button>
-                  <button
-                    type="button"
-                    onClick={e => {
-                      e.preventDefault()
-                      deleteNote({
-                        variables: { _id: note._id }
-                      })
-                    }}
-                  >
-                    Delete Note
-                  </button>
-                  {/* <Link to={`${note._id}`}>Edit</Link> */}
-                </div>
-              ))
-            : "No Notes yet"}
-        </div>
-      </div>
-    </div>
+  const content = (
+    <Wrapper>
+      {data.allNotes.length
+        ? data.allNotes.map(note => (
+            <SingleNote key={note._id}>
+              <h3>{note.title}</h3>
+              <div>
+                <p>{note.content}</p>
+              </div>
+              <div>
+                <Button
+                  onClick={() =>
+                    props.showElement({
+                      navbar: true,
+                      allNotes: true,
+                      newNote: false,
+                      editNote: [
+                        true,
+                        props.editOne({
+                          id: note._id,
+                          title: note.title,
+                          content: note.content
+                        })
+                      ]
+                    })
+                  }
+                >
+                  EDIT
+                </Button>
+                <Button
+                  type="button"
+                  onClick={e => {
+                    e.preventDefault()
+                    deleteNote({
+                      variables: { _id: note._id }
+                    })
+                  }}
+                >
+                  DELETE
+                </Button>
+              </div>
+            </SingleNote>
+          ))
+        : "No Notes yet"}
+    </Wrapper>
   )
+
+  return <NotesStyle>{content}</NotesStyle>
 }
 
 export default AllNotes
