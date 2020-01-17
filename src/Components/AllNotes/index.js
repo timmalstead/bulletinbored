@@ -2,7 +2,7 @@ import React from "react"
 import { useQuery, useMutation } from "@apollo/react-hooks"
 import gql from "graphql-tag"
 
-import { NotesStyle, Wrapper, SingleNote, Button } from "./style"
+import { NotesStyle, SingleNote, ButtonHolder, Button, Message } from "./style"
 
 const notesQuery = gql`
   {
@@ -42,40 +42,40 @@ const AllNotes = props => {
   })
 
   if (loading) {
-    return "Loading..."
+    return <Message>Loading...</Message>
   } else if (error) {
-    return `Error! ${error.message}. Please try reloading in a few seconds.`
+    return (
+      <Message>{error.message}. Please try reloading in a few seconds.</Message>
+    )
   }
 
-  const content = (
-    <Wrapper>
+  return (
+    <NotesStyle>
       {data.allNotes.length
         ? data.allNotes.map(note => (
-            <SingleNote key={note._id}>
+            <SingleNote
+              key={note._id}
+              onClick={() =>
+                props.showElement({
+                  navbar: true,
+                  allNotes: true,
+                  newNote: false,
+                  editNote: [
+                    true,
+                    props.editOne({
+                      id: note._id,
+                      title: note.title,
+                      content: note.content
+                    })
+                  ]
+                })
+              }
+            >
               <h3>{note.title}</h3>
               <div>
                 <p>{note.content}</p>
               </div>
-              <div>
-                <Button
-                  onClick={() =>
-                    props.showElement({
-                      navbar: true,
-                      allNotes: true,
-                      newNote: false,
-                      editNote: [
-                        true,
-                        props.editOne({
-                          id: note._id,
-                          title: note.title,
-                          content: note.content
-                        })
-                      ]
-                    })
-                  }
-                >
-                  EDIT
-                </Button>
+              <ButtonHolder>
                 <Button
                   type="button"
                   onClick={e => {
@@ -85,16 +85,14 @@ const AllNotes = props => {
                     })
                   }}
                 >
-                  DELETE
+                  X
                 </Button>
-              </div>
+              </ButtonHolder>
             </SingleNote>
           ))
         : "No Notes yet"}
-    </Wrapper>
+    </NotesStyle>
   )
-
-  return <NotesStyle>{content}</NotesStyle>
 }
 
 export default AllNotes

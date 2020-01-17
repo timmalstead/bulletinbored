@@ -20,10 +20,7 @@ const About = () => {
           Intentionally Spartan, the focus is on leaving and receiving notes for
           the public.
         </p>
-        <p>
-          Like it? Drop me a line at timmalstead at gmail dot com or leave me a
-          note.
-        </p>
+        <p>Like it? Leave me a note or email timmalstead at gmail dot com.</p>
       </ModalContent>
     </Modal>
   )

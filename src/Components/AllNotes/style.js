@@ -12,25 +12,24 @@ const NotesStyle = styled.div`
   }
 `
 
-const Wrapper = styled.div`
-  all: inherit;
-`
-
 const SingleNote = styled.div`
   margin: 0 1em 2em 1em;
   width: 19vw;
   height: 35vh;
   display: inherit;
-  justify-content: space-around;
+  justify-content: space-between;
   text-align: center;
   flex-direction: column;
   padding: 0 1em 2em 1em;
-  overflow: scroll;
-  border-radius: 1.5em;
+  overflow: hidden;
+  border-radius: 0.5em;
   box-shadow: -0.05em 0.05em 0.4em #000;
+  transform: translateX(0) translateY(0);
+  transition: transform 0.25s linear;
 
   :hover {
     transform: translateX(-0.5em) translateY(-0.5em);
+    transition: transform 0.25s linear;
   }
 
   @media (max-width: 800px) {
@@ -40,11 +39,16 @@ const SingleNote = styled.div`
     justify-content: center;
   }
 `
+const ButtonHolder = styled.div`
+  display: inherit;
+  flex-direction: row;
+  justify-content: flex-end;
+`
 
 const Button = styled.button`
   border: none;
   border: 0.4em solid #3c3c3c;
-  margin: 0 0.5em;
+  /* margin: 0 0.5em; */
   font-size: 12pt;
   background-color: #3c3c3c;
   color: #b0a8a8;
@@ -57,4 +61,8 @@ const Button = styled.button`
   }
 `
 
-export { NotesStyle, Wrapper, SingleNote, Button }
+const Message = styled.p`
+  text-align: center;
+`
+
+export { NotesStyle, SingleNote, ButtonHolder, Button, Message }
