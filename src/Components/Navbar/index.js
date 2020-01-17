@@ -45,18 +45,12 @@ const Navbar = props => {
     </div>
   )
 
-  // useEffect(() => {
-  //   const nav = document.getElementsByClassName("navbar")
-  //   const stick = nav.offsetBottom
-  //   const scrollListener = window.addEventListener("scroll", () => {
-  //     // window.pageYOffset > nav ? setSticky(true) : setSticky(false)
-  //     // window.pageYOffset > stick ? console.log("yes") : console.log("no")
-  //     window.pageYOffset >= stick
-  //       ? nav.classList.remove("sticky")
-  //       : nav.classList.add("sticky")
-  //   })
-  //   return () => window.removeEventListener("scroll", scrollListener)
-  // })
+  useEffect(() => {
+    const scrollListener = window.addEventListener("scroll", () => {
+      window.scrollY > 50 ? setSticky(true) : setSticky(false)
+    })
+    return () => window.removeEventListener("scroll", scrollListener)
+  })
 
   return (
     <div>

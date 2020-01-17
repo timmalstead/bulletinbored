@@ -1,6 +1,7 @@
 import styled from "styled-components"
 
 const NavbarStyle = styled.nav`
+  background-color: #333;
   width: 100%;
   height: 3em;
   display: flex;
@@ -10,16 +11,12 @@ const NavbarStyle = styled.nav`
 
   div {
     all: inherit;
-
-    .sticky {
-      position: fixed;
-      top: 0;
-    }
   }
 `
 const StickyNav = styled(NavbarStyle)`
   position: fixed;
   top: 0;
+  z-index: 1;
 `
 
 export { NavbarStyle, StickyNav }
