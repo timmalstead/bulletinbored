@@ -7,6 +7,8 @@ import schema from "./schema"
 const app = express()
 require("dotenv").config()
 
+app.use(express.static(path.join(__dirname, "build")))
+
 const PORT = process.env.PORT
 
 require("./db/db")
