@@ -27,7 +27,7 @@ const App = () => {
         render={() => <About showElement={showElement} />}
       ></Route>
       {visible.navbar ? <Navbar showElement={showElement} /> : null}
-      {visible.newNote ? <NewNote /> : null}
+      {visible.newNote ? <NewNote showElement={showElement} /> : null}
       {visible.editNote[0] ? (
         <EditNote showElement={showElement} editInfo={editInfo} />
       ) : null}

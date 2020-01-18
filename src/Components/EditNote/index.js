@@ -23,16 +23,16 @@ const EditNote = props => {
 
   return (
     <Modal
-      onClick={e =>
-        e.target === e.currentTarget
-          ? props.showElement({
-              navbar: true,
-              allNotes: true,
-              newNote: false,
-              editNote: [false, null]
-            })
-          : null
-      }
+      onClick={e => {
+        if (e.target === e.currentTarget) {
+          props.showElement({
+            navbar: true,
+            allNotes: true,
+            newNote: false,
+            editNote: [false, null]
+          })
+        }
+      }}
     >
       <ModalContent className="animated bounceIn">
         <form

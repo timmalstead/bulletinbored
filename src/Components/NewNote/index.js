@@ -2,6 +2,9 @@ import React, { useState } from "react"
 import { useMutation } from "@apollo/react-hooks"
 import gql from "graphql-tag"
 
+import { Modal, ModalContent } from "../EditNote/style"
+import { Button } from "../AllNotes/style"
+
 const addNote = gql`
   mutation createNote($title: String!, $content: String) {
     createNote(input: { title: $title, content: $content }) {
@@ -23,7 +26,7 @@ const notesQuery = gql`
   }
 `
 
-const NewNote = () => {
+const NewNote = props => {
   const [title, setTitle] = useState("")
   const [content, setContent] = useState("")
 
@@ -39,48 +42,66 @@ const NewNote = () => {
   })
 
   return (
-    <div>
-      <h1>New Note</h1>​
-      <form
-        onSubmit={e => {
-          e.preventDefault()
-          createNote({
-            variables: {
-              title: title,
-              content: content,
-              date: Date.now()
-            }
+    <Modal
+      onClick={e => {
+        if (e.target === e.currentTarget) {
+          props.showElement({
+            navbar: true,
+            allNotes: true,
+            newNote: false,
+            editNote: [false, null]
           })
-        }}
-      >
-        <div>
-          <label>Note Title</label>
+        }
+      }}
+    >
+      <ModalContent className="animated bounceIn">
+        <form
+          onSubmit={e => {
+            e.preventDefault()
+            createNote({
+              variables: {
+                title: title,
+                content: content,
+                date: Date.now()
+              }
+            })
+            props.showElement({
+              navbar: true,
+              allNotes: true,
+              newNote: false,
+              editNote: [false, null]
+            })
+          }}
+        >
           <div>
-            <input
-              name="title"
-              type="text"
-              placeholder="Note Title"
-              value={title}
-              onChange={e => setTitle(e.target.value)}
-            />
+            <label>Note Title</label>
+            <div>
+              <input
+                name="title"
+                type="text"
+                placeholder="Note Title"
+                value={title}
+                onChange={e => setTitle(e.target.value)}
+              />
+            </div>
           </div>
-        </div>
-        ​
-        <div>
-          <label>Note Content</label>
+          ​
           <div>
-            <textarea
-              name="content"
-              rows="10"
-              placeholder="Note content here..."
-              value={content}
-              onChange={e => setContent(e.target.value)}
-            ></textarea>
+            <label>Note Content</label>
+            <div>
+              <textarea
+                name="content"
+                rows="10"
+                placeholder="Note content here..."
+                value={content}
+                onChange={e => setContent(e.target.value)}
+              ></textarea>
+            </div>
           </div>
-        </div>
-        <button>Submit</button>
-      </form>
-    </div>
+          <Button>NEW</Button>
+        </form>
+      </ModalContent>
+    </Modal>
   )
 }
 

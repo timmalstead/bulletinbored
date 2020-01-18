@@ -50,7 +50,7 @@ const Navbar = props => {
       window.scrollY > 50 ? setSticky(true) : setSticky(false)
     })
     return () => window.removeEventListener("scroll", scrollListener)
-  })
+  }, [])
 
   return (
     <div>
