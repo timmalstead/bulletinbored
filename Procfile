@@ -1,1 +1,1 @@
-web : npm prod-start
+web : babel-node server.js
