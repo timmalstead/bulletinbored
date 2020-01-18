@@ -11,7 +11,7 @@ const About = () => {
 
   return (
     <Modal as={Link} to="/" style={LinkStyle}>
-      <ModalContent>
+      <ModalContent className="animated bounceIn">
         <p>
           Bulletin Bored is a project created to further my understanding of
           React hooks and GraphQL.

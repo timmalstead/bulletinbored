@@ -55,7 +55,9 @@ const Navbar = props => {
   return (
     <div>
       {isSticky ? (
-        <StickyNav className="navbar">{content}</StickyNav>
+        <StickyNav className="navbar animated bounceInDown">
+          {content}
+        </StickyNav>
       ) : (
         <NavbarStyle className="navbar">{content}</NavbarStyle>
       )}

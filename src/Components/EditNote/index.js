@@ -2,6 +2,9 @@ import React, { useState } from "react"
 import { useMutation } from "@apollo/react-hooks"
 import gql from "graphql-tag"
 
+import { Modal, ModalContent } from "./style"
+import { Button } from "../AllNotes/style"
+
 const EditNote = props => {
   const UPDATE_NOTE = gql`
     mutation updateNote($_id: ID!, $title: String!, $content: String) {
@@ -19,9 +22,19 @@ const EditNote = props => {
   const [updateNote] = useMutation(UPDATE_NOTE)
 
   return (
-    <div>
-      <h1>Edit Note</h1>​
-      <div>
+    <Modal
+      onClick={e =>
+        e.target === e.currentTarget
+          ? props.showElement({
+              navbar: true,
+              allNotes: true,
+              newNote: false,
+              editNote: [false, null]
+            })
+          : null
+      }
+    >
+      <ModalContent className="animated bounceIn">
         <form
           onSubmit={e => {
             e.preventDefault()
@@ -31,6 +44,12 @@ const EditNote = props => {
                 title: title ? title : props.editInfo.title,
                 content: content ? content : props.editInfo.content
               }
+            })
+            props.showElement({
+              navbar: true,
+              allNotes: true,
+              newNote: false,
+              editNote: [false, null]
             })
           }}
         >
@@ -58,11 +77,11 @@ const EditNote = props => {
                 onChange={e => setContent(e.target.value)}
               ></textarea>
             </div>
+            ​<Button>EDIT</Button>
           </div>
-          ​<button>Submit</button>
         </form>
-      </div>
-    </div>
+      </ModalContent>
+    </Modal>
   )
 }
 

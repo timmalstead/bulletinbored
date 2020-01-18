@@ -32,6 +32,10 @@ const SingleNote = styled.div`
     transition: transform 0.25s linear;
   }
 
+  h3 {
+    align-self: flex-start;
+  }
+
   @media (max-width: 800px) {
     margin: 1em 0;
     width: 85vw;
@@ -48,7 +52,6 @@ const ButtonHolder = styled.div`
 const Button = styled.button`
   border: none;
   border: 0.4em solid #3c3c3c;
-  /* margin: 0 0.5em; */
   font-size: 12pt;
   background-color: #3c3c3c;
   color: #b0a8a8;

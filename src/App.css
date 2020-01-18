@@ -1,3 +1,8 @@
+all,
+*:focus {
+  outline: none;
+}
+
 body {
   background-color: #333;
   color: #b0a8a8;
