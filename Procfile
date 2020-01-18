@@ -1,1 +1,1 @@
-web : node ./build/server.js --exec babel-node -e js
+web : npm prod-start
