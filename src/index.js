@@ -11,7 +11,15 @@ import { InMemoryCache } from "apollo-cache-inmemory"
 import App from "./App"
 import * as serviceWorker from "./serviceWorker"
 
-const httpLink = createHttpLink({ uri: "http://localhost:8000/graphql" })
+let httpLink
+
+if (process.env.NODE_ENV === "development") {
+  httpLink = createHttpLink({
+    uri: "https://bulletinbored.herokuapp.com/graphql"
+  })
+} else {
+  httpLink = createHttpLink({ uri: "http://localhost:8000/graphql" })
+}
 
 const link = ApolloLink.from([httpLink])
 
