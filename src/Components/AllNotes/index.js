@@ -55,21 +55,23 @@ const AllNotes = props => {
         ? data.allNotes.map(note => (
             <SingleNote
               key={note._id}
-              onClick={() =>
-                props.showElement({
-                  navbar: true,
-                  allNotes: true,
-                  newNote: false,
-                  editNote: [
-                    true,
-                    props.editOne({
-                      id: note._id,
-                      title: note.title,
-                      content: note.content
-                    })
-                  ]
-                })
-              }
+              onClick={e => {
+                if (e.target === e.currentTarget) {
+                  props.showElement({
+                    navbar: true,
+                    allNotes: true,
+                    newNote: false,
+                    editNote: [
+                      true,
+                      props.editOne({
+                        id: note._id,
+                        title: note.title,
+                        content: note.content
+                      })
+                    ]
+                  })
+                }
+              }}
             >
               <h3>{note.title}</h3>
               <div>
@@ -79,10 +81,18 @@ const AllNotes = props => {
                 <Button
                   type="button"
                   onClick={e => {
-                    e.preventDefault()
-                    deleteNote({
-                      variables: { _id: note._id }
-                    })
+                    if (e.target === e.currentTarget) {
+                      e.preventDefault()
+                      deleteNote({
+                        variables: { _id: note._id }
+                      })
+                      props.showElement({
+                        navbar: true,
+                        allNotes: true,
+                        newNote: false,
+                        editNote: [false, null]
+                      })
+                    }
                   }}
                 >
                   X
