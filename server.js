@@ -9,7 +9,7 @@ require("dotenv").config()
 
 app.use(express.static(path.join(__dirname, "build")))
 
-const PORT = process.env.PORT
+const PORT = process.env.PORT || 8000
 
 require("./db/db")
 
