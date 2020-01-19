@@ -1,5 +1,5 @@
-GraphQL To Do
+## Bulletin Bored
 
-fix delete e.target thing
+Link to [Bulletin_Bored](https://bulletinbored.herokuapp.com/)
 
-get graphql working, probably a deep dive in the documentation
+###### Version 1.0
